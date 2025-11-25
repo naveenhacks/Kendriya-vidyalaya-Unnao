@@ -1,11 +1,18 @@
-<div align="center">
+# KVISION - Kendriya Vidyalaya Unnao Platform
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+This is the refactored project structure for the KVISION platform.
 
-  <h1>Built with AI Studio</h2>
+## Getting Started
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+1.  **Install Dependencies**
+    ```bash
+    npm install
+    ```
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+2.  **Firebase Configuration**
+    The Firebase configuration is hardcoded in `src/firebase/firebaseConfig.js`. No further setup is required.
 
-</div>
+3.  **Run the Development Server**
+    ```bash
+    npm run dev
+    ```

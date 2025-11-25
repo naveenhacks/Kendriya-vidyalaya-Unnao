@@ -1,0 +1,176 @@
+
+export enum UserRole {
+  Admin = 'admin',
+  Teacher = 'teacher',
+  Student = 'student',
+}
+
+export interface StudentData {
+  courses: string[];
+  attendance: number; // percentage
+  overallGrade: number; // percentage
+  className?: string; // e.g., "10-A"
+  rollNumber?: string;
+}
+
+export interface User {
+  id: string; // Business logic ID (e.g., Apaar ID for students)
+  uid: string; // Firebase Auth UID
+  name: string;
+  email: string;
+  role: UserRole;
+  password?: string;
+  blocked?: boolean;
+  // Student specific
+  studentData?: StudentData;
+  // Teacher specific
+  subjects?: string[];
+  assignedClass?: string; // Class ID if class teacher
+  // Preferences
+  preferences?: {
+    theme: 'light' | 'dark';
+    accentColor?: string;
+  }
+}
+
+export interface ClassGroup {
+  id: string;
+  name: string; // e.g., "10-A"
+  subjects: string[]; // List of subjects taught in this class
+  classTeacherId?: string; // UID of the class teacher
+}
+
+export interface ActivityLog {
+  id: string;
+  action: string; // e.g., "Added Teacher", "Deleted Notice"
+  performedBy: string; // Admin Name
+  timestamp: string; // ISO String
+  type: 'info' | 'warning' | 'critical' | 'success';
+}
+
+export interface UploadedFile {
+  name: string;
+  type: string;
+  size: number;
+  dataUrl: string; // Base64 encoded file
+}
+
+export interface Homework {
+  id: string;
+  title: string;
+  course: string;
+  dueDate: string;
+  description: string;
+  uploadDate: string;
+  teacherId: string;
+  teacherName: string;
+  file?: UploadedFile;
+  completedBy?: string[];
+}
+
+export interface Announcement {
+  id:string;
+  title: string;
+  content: string;
+  date: string;
+  teacherName: string;
+  isPublished?: boolean;
+  expiryDate?: string;
+}
+
+export interface StudentPerformance {
+  name: string;
+  attendance: number;
+  grade: number;
+}
+
+export interface Message {
+  id: string;
+  content: {
+    type: 'text';
+    value: string;
+  } | {
+    type: 'file';
+    value: UploadedFile;
+  };
+  timestamp: string; // ISO String
+  senderId: string;
+  receiverId: string;
+  status: 'sent' | 'delivered' | 'read';
+}
+
+export interface Notification {
+  id: string;
+  title: string;
+  content: string;
+  date: string; // ISO String
+  target: 'all' | UserRole;
+  readBy: string[]; // Array of user IDs who have read the notification
+}
+
+// --- Homepage Content Types ---
+
+export type SubmissionStatus = 'pending' | 'approved' | 'rejected';
+
+export interface TextBlock {
+  title: string;
+  content: string;
+  isVisible?: boolean;
+}
+
+export interface Stat {
+  id: string;
+  value: number;
+  label: string;
+}
+
+export interface PrincipalInfo {
+  name: string;
+  title: string;
+  message: string;
+  imageUrl: string;
+}
+
+export interface HomepageAnnouncement {
+  id: string;
+  title: string;
+  date: string;
+  content: string;
+  status: SubmissionStatus;
+  submittedBy: string; // user ID
+  authorName?: string; // user name
+}
+
+export interface GalleryImage {
+  id: string;
+  src: string; // dataUrl
+  alt: string;
+  status: SubmissionStatus;
+  submittedBy: string; // user ID
+  authorName?: string; // user name
+}
+
+export interface ContactInfo {
+  schoolName: string;
+  address: string;
+  email: string;
+  phone: string;
+  website: string;
+}
+
+export interface HomepageContent {
+  principalInfo: PrincipalInfo;
+  vision: TextBlock;
+  mission: TextBlock;
+  coreValues: TextBlock;
+  stats: Stat[];
+  announcements: HomepageAnnouncement[];
+  galleryImages: GalleryImage[];
+  contactInfo: ContactInfo;
+  sectionsVisibility?: {
+      principal: boolean;
+      about: boolean;
+      gallery: boolean;
+      contact: boolean;
+  }
+}
