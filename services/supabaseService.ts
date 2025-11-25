@@ -50,11 +50,13 @@ export const uploadFileToStorage = async (file: File, path: string): Promise<str
         .from('kvision-files')
         .upload(path, file, { upsert: true });
 
-    if (error) throw error;
+    if (error || !data) throw error || new Error("Upload failed");
 
     const { data: publicUrlData } = supabase.storage
         .from('kvision-files')
         .getPublicUrl(data.path);
+
+    if (!publicUrlData) throw new Error("Could not retrieve public URL");
 
     return publicUrlData.publicUrl;
 };
