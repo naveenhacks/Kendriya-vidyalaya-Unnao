@@ -9,10 +9,13 @@ This is the refactored project structure for the KVISION platform.
     npm install
     ```
 
-2.  **Firebase Configuration**
-    The Firebase configuration is hardcoded in `src/firebase/firebaseConfig.js`. No further setup is required.
+2.  **Configuration**
+    Ensure environment variables for Supabase and Gemini AI are set in your Vercel project settings or `.env` file.
 
 3.  **Run the Development Server**
     ```bash
     npm run dev
     ```
+
+## Recent Updates
+- Fixed dependencies: Added @supabase/supabase-js to package.json to resolve build errors.
